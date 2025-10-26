@@ -40,7 +40,7 @@ O sistema deve rodar em loop até o usuário decidir encerrar.
 <strong>Classe NodoArvore:</strong> representa um nó da árvore de decisão. <br>
 <strong>Classe Fila:</strong> implementação de fila (com enqueue e dequeue).
 
-## Funções principais
+## Funções principais ✅
 montar_arvore() → cria a árvore do protocolo (pode ser simplificada). <br>
 triagem(arvore) → percorre a árvore com perguntas até chegar em uma cor. <br>
 main() → loop principal com o menu.
