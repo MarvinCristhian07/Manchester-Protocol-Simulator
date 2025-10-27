@@ -66,3 +66,17 @@ Está respirando?
 | Chamada de pacientes por prioridade | Sistema chama corretamente o próximo paciente conforme urgência                                                                     |   20   |
 | Interação com o usuário             | Interface de menu funcional e compreensível                                                                                         |   20   |
 | Compartilhamento no Github          | Link do repositório do projeto e README.md que facilite o entendimento por pessoas que não estejam na disciplina Estrutura de Dados |   20   |
+
+---
+
+# Storyboard do projeto
+
+## 26/10/2025 - Domingo
+Hoje terminei de estruturar as pastas, diretórios e arquivos do meu projeto. E seguindo as boas práticas e as diretrizes do Clean-Architecture, decidi começar a programar pelo back-end e começar pela camada mais interna, o Domínio (Domain):
+
+1. Classificação: src/domain/classification.py → Criar um arquivo para definir as classificações. Usar uma Enum (Enumeração) do Python para boas prática. Torna o código mais legível, seguro (evita erros de digitação como "Vermlho") e centraliza as regras.
+2. Estrutura da Fila: src/domain/custom_queue.py → Usar collections.deque, uma lista duplamente encadeada otimizada para operações de append (enfileirar) e popleft (desenfileirar), ambas com custo O(1).
+3. Entidade Paciente: src/domain/patient.py → Criar uma classe para representar o paciente. Em vez de uma classe padrão, usei um @dataclass, que é uma forma moderna e limpa (introduzida no Python 3.7) de criar classes que servem principalmente para armazenar dados.
+4. Entidade Nó da Árvore: src.domain.triage_node.py → Criar o arquivo NodoArvore. Esta classe é o "tijolo" da nossa árvore de decisão. Um nó, pode ser de dois tipos: Um Nó de Pergunta (interno), que tem uma pergunta e dois filhos (yes_child e no_child). Ou um Nó de Classificação (folha), que tem a cor/classificação final e não tem filhos.
+
+Com isso, finalizo a camada Domain, podendo subir uma nível na arquitetura do projeto, a Infraestrutura (infrastructure).
