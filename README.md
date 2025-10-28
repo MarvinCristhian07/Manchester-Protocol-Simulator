@@ -81,7 +81,7 @@ Hoje terminei de estruturar as pastas, diretórios e arquivos do meu projeto. E 
 
 Com isso, finalizo a camada Domain, podendo subir uma nível na arquitetura do projeto, a Infraestrutura (infrastructure).
 
-## 26/10/2025 - Segunda-feira
+## 27/10/2025 - Segunda-feira
 Seguindo a Clean Architecture, defini um "contrato" na camada Application, e criei a implementação na camada de Infrastructure:
 
 <strong>1. Interface do repositório de filas:</strong> src/application/interfaces/i_queue_repository.py → Aqui eu defino um Contrato (uma "Interface Abstrata") na camada application. Esse contrato diz o que um repositório de filas deve fazer, sem necessariamente se importar como ele faz. Ex: adicionar um paciente, chamar o próximo paciente. <br>
