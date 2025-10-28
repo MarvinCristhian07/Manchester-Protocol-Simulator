@@ -34,9 +34,9 @@ def _ask_yes_no(prompt: str) -> bool:
 
 def triagem(root_node: NodoArvore) -> Classification:
     '''
-    Executa o processo de triagem percorrendo a árvore de decisão. 
+    Executa o processo de triagem percorrendo a árvore de decisão 
     Faz as perguntas ao usuário e navega na árvore com base nas respostas
-    'Sim' ou 'Não" até chegar a um nó folha (classificação).
+    'Sim' ou 'Não" até chegar a um nó folha (classificação)
 
     Args:
         root_node (NodoArvore): O nó raiz da árvore
