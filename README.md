@@ -80,3 +80,11 @@ Hoje terminei de estruturar as pastas, diretórios e arquivos do meu projeto. E 
 <strong>4. Entidade Nó da Árvore:</strong> src.domain.triage_node.py → Criar o arquivo NodoArvore. Esta classe é o "tijolo" da nossa árvore de decisão. Um nó, pode ser de dois tipos: Um Nó de Pergunta (interno), que tem uma pergunta e dois filhos (yes_child e no_child). Ou um Nó de Classificação (folha), que tem a cor/classificação final e não tem filhos.
 
 Com isso, finalizo a camada Domain, podendo subir uma nível na arquitetura do projeto, a Infraestrutura (infrastructure).
+
+## 26/10/2025 - Segunda-feira
+Seguindo a Clean Architecture, defini um "contrato" na camada Application, e criei a implementação na camada de Infrastructure:
+
+<strong>1. Interface do repositório de filas:</strong> src/application/interfaces/i_queue_repository.py → Aqui eu defino um Contrato (uma "Interface Abstrata") na camada application. Esse contrato diz o que um repositório de filas deve fazer, sem necessariamente se importar como ele faz. Ex: adicionar um paciente, chamar o próximo paciente. <br>
+<strong>2. Implementação do Repositório em Memória:</strong> src/infrastructure/repositories/in_memory_repository.py → Criei o InMemoryQueueRepository. Ele vai herdar da interface (IQueueRepository) e implementar os três métodos definidos, usando as classes Fila e Classification criadas no domínio.
+
+Agora tenho todo o alicerce. Tenho as Entidades (domain), o Construtor da Árvore (infrastructure), o Navegador da Triagem (application/services) e o Gerenciador das Filas (infrastructure/repositories). Com isso, posso partir para a construção dos casos de uso.
