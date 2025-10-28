@@ -69,7 +69,7 @@ Está respirando?
 
 ---
 
-# Storyboard do projeto
+# Storyboard do projeto 🕖
 
 ## 26/10/2025 - Domingo
 Hoje terminei de estruturar as pastas, diretórios e arquivos do meu projeto. E seguindo as boas práticas e as diretrizes do Clean-Architecture, decidi começar a programar pelo back-end e começar pela camada mais interna, o Domínio (Domain):
