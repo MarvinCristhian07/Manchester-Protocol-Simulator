@@ -9,7 +9,7 @@ class CallNextPatientUseCase:
     Orquestra a obtenção do paciente da fila de maior prioridade
     disponível através do repositório
     '''
-    def __init__(self, queue_repo, IQueueRepository):
+    def __init__(self, queue_repo: IQueueRepository):
         '''
         Inicializa o caso de uso com suas dependências
         
