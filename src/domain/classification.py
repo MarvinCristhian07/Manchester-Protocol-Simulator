@@ -21,11 +21,7 @@ class Classification(enum.Enum):
         self._color_emoji = color_emoji
         self._description = description
         self._priority_level = priority_level
-        
-        # --- CORREÇÃO DO BUG ---
-        # Estava: self._hex_color = priority_level
-        self._hex_color = hex_color # <-- CORRIGIDO
-        # --- FIM DA CORREÇÃO ---
+        self._hex_color = hex_color
 
     @property
     def color(self):
@@ -50,7 +46,7 @@ class Classification(enum.Enum):
     @classmethod
     def get_by_priority(cls, level: int):
         # Método auxiliar para encontrar uma classificação pelo nível de prioridade
-        for classification_member in cls: # Nome da variável 'Classification' mudo para 'classification_member' para evitar conflito
+        for classification_member in cls:
             if classification_member.priority == level:
                 return classification_member
         raise ValueError(f"Nenhum nível de prioridade correspondente a '{level}'")
