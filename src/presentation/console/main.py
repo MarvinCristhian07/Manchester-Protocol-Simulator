@@ -2,7 +2,6 @@ import sys
 import os
 from typing import Dict, Tuple
 
-# --- Bloco de correção de Path (IMPORTANTE) ---
 current_file_path = os.path.abspath(__file__)
 console_dir = os.path.dirname(current_file_path)
 presentation_dir = os.path.dirname(console_dir)
@@ -11,7 +10,6 @@ project_root = os.path.dirname(src_dir)
 
 if project_root not in sys.path:
     sys.path.append(project_root)
-# --- Fim do Bloco de correção de Path ---
 
 from src.domain.patient import Patient
 from src.domain.classification import Classification
@@ -19,13 +17,10 @@ from src.domain.triage_node import NodoArvore
 from src.infrastructure.triage_builder import montar_arvore
 from src.infrastructure.repositories.in_memory_repository import InMemoryQueueRepository
 
-# --- CORREÇÃO 1: Importações ---
-# Corrigido o 's' extra em GetQueuesStatusUseCase
-# Corrigido o serviço de triagem para usar a versão de console
 from src.application.use_cases.register_patient import RegisterPatientUseCase
 from src.application.use_cases.call_next_patient import CallNextPatientUseCase
 from src.application.use_cases.get_queues_status import GetQueuesStatusUseCase
-from src.application.services.triage_service import triagem_console # MUDANÇA AQUI
+from src.application.services.triage_service import triagem_console
 
 
 def _show_menu():
@@ -38,24 +33,19 @@ def _show_menu():
     print("0 - Sair")
 
 def _handle_register_patient(use_case: RegisterPatientUseCase, triage_tree: NodoArvore):
-    """
-    Handler ATUALIZADO para o Caso de Uso 1 (Console).
-    Agora ele orquestra a criação do paciente e a triagem_console.
-    """
+    '''
+    Handler para o Caso de Uso 1 (Console)
+    orquestrar a criação do paciente e a triagem_console
+    '''
     print("\n[Opção 1: Cadastrar Paciente]")
     try:
         name = input("Digite o nome completo do paciente: ").strip()
         
-        # --- LÓGICA ATUALIZADA ---
-        # 1. A UI (console) cria o paciente
         patient = Patient(name=name)
         
-        # 2. A UI (console) executa a triagem específica do console
         classification = triagem_console(triage_tree)
-        
-        # 3. A UI (console) chama o caso de uso SIMPLIFICADO para salvar
+
         use_case.execute(patient, classification)
-        # --- FIM DA LÓGICA ---
         
         print("\n[CADASTRO CONCLUÍDO]")
         print(f"Paciente: {patient.name}")
@@ -82,7 +72,7 @@ def _handle_call_patient(use_case: CallNextPatientUseCase):
     except SystemError as e:
         print(f"\nERRO NO SISTEMA: {e}")
         
-def _handle_show_status(use_case: GetQueuesStatusUseCase): # <-- CORREÇÃO 2: 's' removido
+def _handle_show_status(use_case: GetQueuesStatusUseCase):
     print("\n[Opção 3: Status das Filas]")
     try:
         status_dict = use_case.execute()
@@ -103,13 +93,6 @@ def _handle_show_status(use_case: GetQueuesStatusUseCase): # <-- CORREÇÃO 2: '
         print(f"\nERRO NO SISTEMA: {e}")
         
 def setup_application() -> Tuple[RegisterPatientUseCase, CallNextPatientUseCase, GetQueuesStatusUseCase, NodoArvore]:
-    """
-    Função de setup ATUALIZADA.
-    - Corrige o 's' extra em GetQueuesStatusUseCase.
-    - Corrige o type hint de retorno para usar Tuple[...].
-    - Não injeta mais a árvore no RegisterPatientUseCase.
-    - Retorna a árvore para o 'main' usar.
-    """
     print("Inicializando o Manchester Protocol Simulator...")
     
     try:
@@ -121,29 +104,23 @@ def setup_application() -> Tuple[RegisterPatientUseCase, CallNextPatientUseCase,
         
         print("[Setup] Injetando dependências nos casos de uso...")
         
-        # --- INJEÇÃO ATUALIZADA ---
-        # RegisterPatientUseCase não precisa mais da árvore
         register_use_case = RegisterPatientUseCase(queue_repo) 
         call_use_case = CallNextPatientUseCase(queue_repo)
-        status_use_case = GetQueuesStatusUseCase(queue_repo) # <-- CORREÇÃO 3: 's' removido
+        status_use_case = GetQueuesStatusUseCase(queue_repo)
         
         print("Sistema pronto para operar.\n")
         
-        # --- RETORNO ATUALIZADO ---
-        # Retorna a árvore para o 'main' poder passá-la para o handler
         return register_use_case, call_use_case, status_use_case, triage_tree
     
     except SystemError as e:
         print(f"\n[ERRO CRÍTICO NA INICIALIZAÇÃO]")
         print(f"O sistema não pode iniciar: {e}")
-        return None, None, None, None # type: ignore
+        return None, None, None, None
     except Exception as e:
         print(f"\n[ERRO DESCONHECIDO NA INICIALIZAÇÃO]: {e}")
-        return None, None, None, None # type: ignore
+        return None, None, None, None
         
 def main():
-    # --- CHAMADA ATUALIZADA ---
-    # Agora recebe 4 itens
     register_uc, call_uc, status_uc, triage_tree = setup_application()
     
     if not all([register_uc, call_uc, status_uc, triage_tree]):
@@ -164,8 +141,6 @@ def main():
             print("-" * 35)
             
             if choice == 1:
-                # --- CHAMADA ATUALIZADA ---
-                # Passa a árvore para o handler
                 _handle_register_patient(register_uc, triage_tree)
             elif choice == 2:
                 _handle_call_patient(call_uc)
