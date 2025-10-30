@@ -3,10 +3,10 @@ from typing import Optional
 from src.domain.patient import Patient
 
 class CallResultWindow(customtkinter.CTkToplevel):
-    """
+    '''
     Janela "popup" para exibir o resultado da chamada do
-    próximo paciente (Botão 2).
-    """
+    próximo paciente (Botão 2)
+    '''
     def __init__(self, 
                  master: customtkinter.CTk, 
                  patient: Optional[Patient]):
@@ -18,8 +18,6 @@ class CallResultWindow(customtkinter.CTkToplevel):
         self.geometry("400x200")
         self.minsize(350, 180)
         
-        # --- Widgets ---
-        
         # Frame principal
         main_frame = customtkinter.CTkFrame(self, fg_color="transparent")
         main_frame.pack(padx=20, pady=20, fill="both", expand=True)
@@ -27,7 +25,7 @@ class CallResultWindow(customtkinter.CTkToplevel):
 
         # A lógica da UI depende do resultado
         if patient:
-            # --- PACIENTE ENCONTRADO ---
+            # Paciente encontrado
             title_label = customtkinter.CTkLabel(
                 main_frame, 
                 text="Próximo Paciente:",
@@ -35,17 +33,17 @@ class CallResultWindow(customtkinter.CTkToplevel):
             )
             title_label.grid(row=0, column=0, padx=10, pady=(10, 5))
 
-            # Exibe o nome do paciente em destaque
+            # Exibir o nome do paciente em destaque
             patient_name_label = customtkinter.CTkLabel(
                 main_frame,
                 text=patient.name.upper(),
                 font=customtkinter.CTkFont(size=24, weight="bold"),
-                text_color="#3182CE" # Azul (tema padrão)
+                text_color="#3182CE"
             )
             patient_name_label.grid(row=1, column=0, padx=10, pady=(5, 20))
 
         else:
-            # --- FILAS VAZIAS ---
+            # Filas vazias
             title_label = customtkinter.CTkLabel(
                 main_frame, 
                 text="Todas as filas estão vazias.",
