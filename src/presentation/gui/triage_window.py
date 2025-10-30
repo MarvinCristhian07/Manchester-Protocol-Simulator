@@ -7,9 +7,9 @@ from src.application.use_cases.register_patient import RegisterPatientUseCase
 from src.application.services.triage_service import TriageNavigator
 
 class TriageWindow(customtkinter.CTkToplevel):
-    """
-    Janela "popup" para o processo de cadastro e triagem.
-    """
+    '''
+    Janela "popup" para o processo de cadastro e triagem
+    '''
     def __init__(self, 
                  master: customtkinter.CTk, 
                  register_uc: RegisterPatientUseCase, 
@@ -22,21 +22,14 @@ class TriageWindow(customtkinter.CTkToplevel):
         self.geometry("450x300")
         self.minsize(400, 250)
         
-        # Dependências
         self.register_use_case = register_uc
         self.triage_tree = triage_tree
         self.navigator: Optional[TriageNavigator] = None
         self.patient: Optional[Patient] = None
         
-        # --- CORREÇÃO DA FONTE (EMOJI) ---
-        # Define a fonte que sabe renderizar emojis e a armazena
-        # Usamos size 18 e bold para bater com o estilo do result_label
         self.emoji_font = customtkinter.CTkFont(family="Segoe UI Emoji", size=18, weight="bold")
-        # --- FIM DA CORREÇÃO ---
-
-        # --- Widgets ---
         
-        # Frame de Cadastro (Nome)
+        # Frame de Cadastro
         self.name_frame = customtkinter.CTkFrame(self)
         self.name_frame.pack(padx=20, pady=20, fill="x")
         
@@ -51,7 +44,6 @@ class TriageWindow(customtkinter.CTkToplevel):
 
         # Frame de Triagem (Perguntas)
         self.triage_frame = customtkinter.CTkFrame(self, fg_color="transparent")
-        # .pack() será chamado em 'start_triage'
         
         self.question_label = customtkinter.CTkLabel(self.triage_frame, text="Pergunta...", font=customtkinter.CTkFont(size=16), wraplength=380)
         self.question_label.pack(pady=(10, 20))
@@ -67,10 +59,7 @@ class TriageWindow(customtkinter.CTkToplevel):
 
         # Frame de Resultado
         self.result_frame = customtkinter.CTkFrame(self, fg_color="transparent")
-        # .pack() será chamado em 'show_result'
-        
-        # O label é configurado com o texto inicial.
-        # A fonte e a cor serão definidas no show_result()
+
         self.result_label = customtkinter.CTkLabel(self.result_frame, text="Resultado:", font=customtkinter.CTkFont(size=18, weight="bold"))
         self.result_label.pack(pady=(10, 10))
         
@@ -79,31 +68,30 @@ class TriageWindow(customtkinter.CTkToplevel):
 
 
     def start_triage(self):
-        """Inicia o processo de triagem após pegar o nome."""
+        # Iniciar o processo de triagem após pegar o nome
         patient_name = self.name_entry.get().strip()
         
         try:
-            # 1. Valida e cria o Paciente
+            # Validar e criar o Paciente
             self.patient = Patient(name=patient_name)
         except ValueError as e:
-            # Mostra o erro na própria tela de cadastro
+            # Mostrar o erro na própria tela de cadastro
             self.name_label.configure(text=f"Erro: {e}", text_color="red")
             return
 
-        # 2. Inicializa o Navegador
+        # Inicializar o Navegador
         self.navigator = TriageNavigator(self.triage_tree)
         
-        # 3. Esconde o frame de nome e mostra o frame de perguntas
+        # Esconder o frame de nome e mostrar o frame de perguntas
         self.name_frame.pack_forget()
         self.triage_frame.pack(padx=20, pady=20, fill="both", expand=True)
         
-        # 4. Faz a primeira pergunta
+        # Fazer a primeira pergunta
         self.ask_next_question()
 
     def ask_next_question(self):
-        """Atualiza a UI com a próxima pergunta."""
+        # Atualizar a interface com a próxima pergunta
         if self.navigator.is_finished():
-            # Acabou
             self.show_result()
         else:
             # Próxima pergunta
@@ -111,15 +99,15 @@ class TriageWindow(customtkinter.CTkToplevel):
             self.question_label.configure(text=question)
 
     def answer(self, answer_is_yes: bool):
-        """Processa a resposta (Sim/Não) do usuário."""
+        # Processar a resposta (Sim/Não) do usuário
         self.navigator.navigate(answer_is_yes)
-        self.ask_next_question() # Pergunta de novo (ou mostra resultado)
+        self.ask_next_question()
 
     def show_result(self):
-        """Mostra o resultado final da triagem."""
+        # Mostrar o resultado final da triagem
         classification = self.navigator.get_final_classification()
         
-        # Salva no repositório
+        # Salvar no repositório
         try:
             self.register_use_case.execute(self.patient, classification)
             
@@ -127,17 +115,12 @@ class TriageWindow(customtkinter.CTkToplevel):
             self.triage_frame.pack_forget()
             self.result_frame.pack(padx=20, pady=20, fill="both", expand=True)
             
-            # --- CORREÇÃO DO LABEL DE RESULTADO ---
-            # 1. Usa a 'self.emoji_font' (definida no __init__)
-            # 2. Usa 'text_color' para colorir o texto com o hex_color
             self.result_label.configure(
                 text=f"Paciente: {self.patient.name}\n\n"
                      f"{classification.color} {classification.description}",
-                font=self.emoji_font, # <-- FONTE CORRIGIDA
-                text_color=classification.hex_color # <-- COR DO TEXTO CORRIGIDA
+                font=self.emoji_font,
+                text_color=classification.hex_color
             )
-            # --- FIM DA CORREÇÃO ---
             
         except (ValueError, SystemError) as e:
-            # Erro ao salvar
             self.result_label.configure(text=f"Erro ao salvar: {e}", text_color="red")
