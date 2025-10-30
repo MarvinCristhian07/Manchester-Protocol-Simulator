@@ -1,73 +1,78 @@
 from src.domain.triage_node import NodoArvore
 from src.domain.classification import Classification
+from src.infrastructure.triage_builder import montar_arvore
+from typing import Optional
 
 def _ask_yes_no(prompt: str) -> bool:
     '''
-    Função auxiliar privada para fazer pergunta de Sim/Não ao usuário
-
-    Valida a entrada e continua perguntando até receber 'S' ou 'N'
-
-    Args:
-        prompt (str): A pergunta a ser exibida.
-
-    Returns:
-        bool: True se o usuário digitar 'S' ou False se for 'N'
+    Função auxiliar privada para o console
     '''
     while True:
         try:
-            # Só pra garantir que a pergunta seja bem formatada
             answer = input(f"\n[PERGUNTA] {prompt} (S/N): ").strip().upper()
-
-            if answer == 'S' or answer == "SIM":
+            if answer == 'S' or answer == 'SIM':
                 return True
-            elif answer == 'N' or answer == "NÃO":
+            elif answer == 'N' or answer == 'NAO' or answer == 'NÃO':
                 return False
             else:
                 print(f"ERRO: Resposta '{answer}' inválida. Por favor, digite 'S' para Sim ou 'N' para Não.")
-        
         except KeyboardInterrupt:
-            print("\nTriagem interrompida pelo usuário.")
+            print("\nTriagem interrompida.")
             raise
-        except Exception as e:
-            print(f"Ocorreu um erro inesperado: {e}")
-            raise SystemError("Falha na entrada de dados.")
 
-def triagem(root_node: NodoArvore) -> Classification:
-    '''
-    Executa o processo de triagem percorrendo a árvore de decisão 
-    Faz as perguntas ao usuário e navega na árvore com base nas respostas
-    'Sim' ou 'Não" até chegar a um nó folha (classificação)
-
-    Args:
-        root_node (NodoArvore): O nó raiz da árvore
-
-    Returns:
-        Classification: A classificação final (vermelho, laranja....)
-
-    Raises:
-        ValueError: Se a árvore fornecida for nula ouu inválida
-    '''
+def triagem_console(root_node: NodoArvore) -> Classification:
     if not root_node or not isinstance(root_node, NodoArvore):
-        raise ValueError("A árvore de triagem (root_node) é inválida ou não foi fornecida.")
+        raise ValueError("A árvore de triagem (root_node) é inválida.")
     
-    print("--- Iniciando Triagem ---")
-
+    print("--- Iniciando Triagem (Modo Console) ---")
     current_node = root_node
+    
+    try:
+        while not current_node.is_leaf():
+            answer_is_yes = _ask_yes_no(current_node.question)
+            current_node = current_node.yes_child if answer_is_yes else current_node.no_child
+            
+        final_classification = current_node.classification
+        print("--- Triagem Concluída ---")
+        print(f"Resultado: {final_classification.color} {final_classification.description}")
+        return final_classification
+    except KeyboardInterrupt:
+        raise SystemError("Triagem interrompida pelo usuário.")
 
-    # Vai navegar na árvore enquanto o nó atual não for uma folha
-    while not current_node.is_leaf():
-        # Função auxiliar cuida da validação da entrada
-        answer_is_yes = _ask_yes_no(current_node.question)
 
+class TriageNavigator:
+    '''
+    Classe controlável pela GUI para navegar na árvore de decisão
+    Ela mantém o estado da triagem
+    '''
+    def __init__(self, root_node: NodoArvore):
+        if not root_node or not isinstance(root_node, NodoArvore):
+            raise ValueError("A árvore de triagem (root_node) é inválida.")
+        self.root_node = root_node
+        self.current_node = root_node
+
+    def get_current_question(self) -> Optional[str]:
+        '''Retorna a pergunta atual, ou None se a triagem terminou'''
+        if self.is_finished():
+            return None
+        return self.current_node.question
+
+    def navigate(self, answer_is_yes: bool):
+        '''Avança na árvore com base na resposta'''
+        if self.is_finished():
+            return
+            
         if answer_is_yes:
-            current_node = current_node.yes_child
+            self.current_node = self.current_node.yes_child
         else:
-            current_node = current_node.no_child
+            self.current_node = self.current_node.no_child
+            
+    def is_finished(self) -> bool:
+        ''' Verifica se a triagem chegou a uma folha (classificação)'''
+        return self.current_node.is_leaf()
 
-    # Ao sair do loop, current_node é uma folha (ou seja, chegou à uma classificação!)
-    final_classification = current_node.classification
-
-    print("--- Triagem Concluída ---")
-    print(f"Resultado: {final_classification.color} {final_classification.description}")
-
-    return final_classification
+    def get_final_classification(self) -> Optional[Classification]:
+        ''' Retorna a classificação final, ou None se não terminou '''
+        if self.is_finished():
+            return self.current_node.classification
+        return None
