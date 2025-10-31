@@ -107,7 +107,7 @@ Criando Ponto de entrada com o menu em loop principal do sistema:
 
 Agora tenho todo o back-end feito, e o loop do menu main() criado, posso partir pra criar as interfaces (GUI).
 
-## 29/10/2025 - Quinta-feira
+## 30/10/2025 - Quinta-feira
 Criando as interfaces do sistema (GUI). Para isso, utilizei a biblioteca CustomTKinter:
 
 <strong>1. UI Gráfica (CustomTkinter):</strong> ```src/presentation/gui/app.py``` → Este arquivo tem a mesma função do meu main.py, mas agora, para lidar com as interfaces do sistema. <br><br>
