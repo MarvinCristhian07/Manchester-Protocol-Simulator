@@ -22,7 +22,8 @@ O sistema deve:
 <details>
 <summary><strong>Inserir pacientes em filas separadas por cor,</strong> conforme o resultado da triagem.</summary> <br>
 
-* Cada fila deve funcionar como uma <strong>estrutura de dados FIFO</strong>.
+* Cada fila deve funcionar como uma <strong>estrutura de dados FIFO¹</strong>.
+1. FIFO: Uma estrutura FIFO (First-In, First-Out) é um método de organização e processamento de dados onde o primeiro item a entrar na estrutura (uma lista, por exemplo) é também o primeiro a sair. Na programação, isso é comumente implementado usando uma estrutura de dados chamada Fila (Queue). Novos elementos são adicionados ao final ("fim da fila") e os elementos são removidos do início ("início da fila").
 </details>
 
 <details>
