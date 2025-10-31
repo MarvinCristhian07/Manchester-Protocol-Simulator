@@ -96,7 +96,14 @@ Back-end concluído! Finalizei toda a lógica de negócio, casos de uso e implem
 <strong>1. Serviço de triagem:</strong> ```src/application/services/triage_service.py``` → Aqui eu crio o arquivo que orquestra toda a lógica de negócio. A função triagem está criada, e esse serviço vai navegar a árvore, percorrendo por cada uma das perguntas e validar as entradas do usuário. <br><br>
 <strong>2. Caso de Uso Registrar Paciente:</strong> ```src/application/use_cases/register_patient.py``` → O algoritmo responsável por registrar um paciente, recebendo o nome do paciente, criando o objeto paciente e chamando as funções e serviços das perguntas e classificação. <br><br>
 <strong>3. Caso de Uso Chamar Próximo Paciente:</strong> ```src/application/use_cases/call_next_patient.py``` → Este arquivo define a lógica para chamar o próximo paciente, respeitando a ordem de prioridade (Vermelho > Laranja > Amarelo > Verde > Azul). <br><br>
-<strong>4. Caso de Uso Obter Status das Filas</strong> ```src/application/use_cases/get_queues_status.py``` → Este arquivo define a lógica para consultar o tamanho das filas e o total de pacientes registrados. <br><br>
+<strong>4. Caso de Uso Obter Status das Filas</strong> ```src/application/use_cases/get_queues_status.py``` → Este arquivo define a lógica para consultar o tamanho das filas e o total de pacientes registrados.
 
 Agora tenho todo o back-end feito, falta apenas criar o ponto de entrada com o loop do menu main().
+
+## 29/10/2025 - Quarta-feira
+Criando Ponto de entrada com o menu em loop principal do sistema:
+
+<strong>1. Ponto de Entrada / UI de Console:</strong> ```src/presentation/console/main.py``` → Nesse arquivo eu crio a função main(), com o loop do menu e as funções auxiliares para tratar as entradas e saídas do usuário. <br><br>
+
+Agora tenho todo o back-end feito, e o loop do menu main() criado, posso partir pra criar as interfaces (GUI).
 
