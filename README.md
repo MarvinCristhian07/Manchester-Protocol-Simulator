@@ -78,7 +78,15 @@ Todo o histórico de desenvolvimento, organização de pastas e decisões de arq
 
 ---
 
-## Como executar a aplicação?
+## Informações do sistema 🌐
+
+- Versão do Python utilizada: 3.12.2
+- Editor de código utilizado: Visual Studio Code v1.105
+- Biblioteca para criação de interfaces: CustomTkinter ﻿v5.2.2
+
+---
+
+## Como executar a aplicação? 🧑‍💻
 
 Este sistema utiliza a biblioteca CustomTkinter para criar todas as telas e interface da aplicação, e essa lib não é nativa do Python. Por isso, é necessário instalá-la. <br>
 Para executar o sistema Manchester Protocol Simulator é necessário clonar este repositório. Se quiser saber como clonar um repositório no Github, <a href="https://docs.github.com/pt/repositories/creating-and-managing-repositories/cloning-a-repository"><strong>clique aqui</strong></a>. <br>
