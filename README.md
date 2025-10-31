@@ -89,3 +89,14 @@ Seguindo a Clean Architecture, defini um "contrato" na camada Application, e cri
 <strong>2. Implementação do Repositório em Memória:</strong> ```src/infrastructure/repositories/in_memory_repository.py``` → Criei o InMemoryQueueRepository. Ele vai herdar da interface (IQueueRepository) e implementar os três métodos definidos, usando as classes Fila e Classification criadas no domínio.
 
 Agora tenho todo o alicerce. Tenho as Entidades (domain), o Construtor da Árvore (infrastructure), o Navegador da Triagem (application/services) e o Gerenciador das Filas (infrastructure/repositories). Com isso, posso partir para a construção dos casos de uso.
+
+## 28/10/2025 - Terça-feira
+Back-end concluído! Finalizei toda a lógica de negócio, casos de uso e implementação do sistema:
+
+<strong>1. Serviço de triagem:</strong> ```src/application/services/triage_service.py``` → Aqui eu crio o arquivo que orquestra toda a lógica de negócio. A função triagem está criada, e esse serviço vai navegar a árvore, percorrendo por cada uma das perguntas e validar as entradas do usuário. <br><br>
+<strong>2. Caso de Uso Registrar Paciente:</strong> ```src/application/use_cases/register_patient.py``` → O algoritmo responsável por registrar um paciente, recebendo o nome do paciente, criando o objeto paciente e chamando as funções e serviços das perguntas e classificação. <br><br>
+<strong>3. Caso de Uso Chamar Próximo Paciente:</strong> ```src/application/use_cases/call_next_patient.py``` → Este arquivo define a lógica para chamar o próximo paciente, respeitando a ordem de prioridade (Vermelho > Laranja > Amarelo > Verde > Azul). <br><br>
+<strong>4. Caso de Uso Obter Status das Filas</strong> ```src/application/use_cases/get_queues_status.py``` → Este arquivo define a lógica para consultar o tamanho das filas e o total de pacientes registrados. <br><br>
+
+Agora tenho todo o back-end feito, falta apenas criar o ponto de entrada com o loop do menu main().
+
