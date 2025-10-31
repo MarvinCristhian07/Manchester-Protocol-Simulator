@@ -103,7 +103,7 @@ Agora tenho todo o back-end feito, falta apenas criar o ponto de entrada com o l
 ## 29/10/2025 - Quarta-feira
 Criando Ponto de entrada com o menu em loop principal do sistema:
 
-<strong>1. Ponto de Entrada / UI de Console:</strong> ```src/presentation/console/main.py``` → Nesse arquivo eu crio a função main(), com o loop do menu e as funções auxiliares para tratar as entradas e saídas do usuário. <br><br>
+<strong>1. Ponto de Entrada / UI de Console:</strong> ```src/presentation/console/main.py``` → Nesse arquivo eu crio a função main(), com o loop do menu e as funções auxiliares para tratar as entradas e saídas do usuário.
 
 Agora tenho todo o back-end feito, e o loop do menu main() criado, posso partir pra criar as interfaces (GUI).
 
