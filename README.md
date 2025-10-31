@@ -75,3 +75,16 @@ Está respirando?
 Todo o histórico de desenvolvimento, organização de pastas e decisões de arquitetura (Clean Architecture) que tomei durante a criação deste projeto foi documentado em um diário de bordo.
 
 ➡️ **[Clique aqui para ler o Diário de Bordo (Storyboard) completo](./STORYBOARD.md)**
+
+---
+
+## Como executar a aplicação?
+
+Este sistema utiliza a biblioteca CustomTkinter para criar todas as telas e interface da aplicação, e essa lib não é nativa do Python. Por isso, é necessário instalá-la. <br>
+Para executar o sistema Manchester Protocol Simulator é necessário clonar este repositório. Se quiser saber como clonar um repositório no Github, <a href="https://docs.github.com/pt/repositories/creating-and-managing-repositories/cloning-a-repository"><strong>clique aqui</strong></a>. <br>
+Com o repositório clonado em seu computador: <br><br>
+<strong>1. Abra a pasta do projeto:</strong> Abra um editor de código que possua um interpretador Python. Recomendo o Visual Studio Code ou o PyCharm. <br>
+<strong>2. Crie um ambiente virtual:</strong> No terminal, execute o comando ```python -m venv venv```. <br>
+<strong>3. Ative o ambiente virtual:</strong> Após a criação do ambiente virtual, ative-o com o comando (PowerShell): ```.\venv\Scripts\Activate.ps1```. <br>
+<strong>4. Instale as dependências necessárias:</strong> Ainda no terminal, execute o comando ```pip install -r requirements.txt``` para instalar as libs necessárias. <br>
+<strong>5. Execute o sistema:</strong> Com as libs instaladas e ambiente configurado, navegue até ```src/presentation/gui/app.py``` e execute o sistema (Run)! <br>
