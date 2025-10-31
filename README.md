@@ -107,3 +107,12 @@ Criando Ponto de entrada com o menu em loop principal do sistema:
 
 Agora tenho todo o back-end feito, e o loop do menu main() criado, posso partir pra criar as interfaces (GUI).
 
+## 29/10/2025 - Quinta-feira
+Criando as interfaces do sistema (GUI). Para isso, utilizei a biblioteca CustomTKinter:
+
+<strong>1. UI Gráfica (CustomTkinter):</strong> ```src/presentation/gui/app.py``` → Este arquivo tem a mesma função do meu main.py, mas agora, para lidar com as interfaces do sistema. <br><br>
+<strong>2. A Janela de Triagem (GUI):</strong> ```src/presentation/gui/triage_window.py``` → Este arquivo é a janela popup (Toplevel) que faz a triagem passo a passo. <br><br>
+<strong>3. A Janela de Status:</strong> ```src/presentation/gui/status_window.py``` → Este arquivo chama o GetQueuesStatusUseCase assim que for aberta (__init__) e usa os dados para construir a interface e mostrar as filas. <br><br>
+<strong>4. Janela de Resultado da Chamada:</strong> ```src/presentation/gui/call_result_window.py``` → E este arquivo é o popup que mostra quem foi chamado ou se as filas estão vazias.
+
+Com isso, finalizo o projeto, com back-end e front-end prontos e funcionais. A interface está bem simples devido ao tempo para a entrega do projeto. Mas foi uma ótima experiência e prática.
