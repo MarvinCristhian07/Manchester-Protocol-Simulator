@@ -63,9 +63,9 @@ Está respirando?
 |-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|--------|
 | Estrutura de dados da árvore        | Implementou corretamente a árvore de decisão (nós, folhas, percorrimento)                                                           |   20   |
 | Estrutura de filas                  | Implementou filas separadas para cada nível de prioridade                                                                           |   20   |
-| Correta classificação de pacientes  | Triagem segue corretamente a lógica da árvore                                                                                       |   20   |
-| Chamada de pacientes por prioridade | Sistema chama corretamente o próximo paciente conforme urgência                                                                     |   20   |
-| Interação com o usuário             | Interface de menu funcional e compreensível                                                                                         |   20   |
+| Correta classificação de pacientes  | Triagem segue corretamente a lógica da árvore                                                                                       |   15   |
+| Chamada de pacientes por prioridade | Sistema chama corretamente o próximo paciente conforme urgência                                                                     |   15   |
+| Interação com o usuário             | Interface de menu funcional e compreensível                                                                                         |   10   |
 | Compartilhamento no Github          | Link do repositório do projeto e README.md que facilite o entendimento por pessoas que não estejam na disciplina Estrutura de Dados |   20   |
 
 ---
